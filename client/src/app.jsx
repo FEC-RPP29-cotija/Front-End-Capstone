@@ -9,8 +9,9 @@ import QnAClicks from './questions-n-answers/QnAClicks.jsx';
 // CLIENT ROUTES
 import { reviews, reviewsMeta } from "./clientRoutes/reviews.js";
 import { products, productsWithId, productsStyle, productsRelated } from "./clientRoutes/products.js";
-import { questions, getReported } from "./clientRoutes/qa.js";
+import { questions, createNewServerData } from "./clientRoutes/qa.js";
 import { cart } from "./clientRoutes/cart.js";
+import BounceData from './CacheData.jsx';
 
 //questions/answers test data
 
@@ -27,7 +28,8 @@ class App extends React.Component {
       currentProductPhoto:'',
       loaded: false,
       ratings: {},
-      isDarkMode: false
+      isDarkMode: false,
+      currentTime:''
     }
     this.handleProductChange = this.handleProductChange.bind(this);
     this.getStateData = this.getStateData.bind(this);
@@ -35,6 +37,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+   console.log(this.props.bounce)
+
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
     const product = params.product_id || this.state.product_id;
@@ -42,11 +46,24 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+
     if (prevState.product_id !== this.state.product_id) {
-      this.getStateData(this.state.product_id)
+
+      let newBounceState = this.props.bounce.getBounceDataState()
+
+      console.log(newBounceState)
+      //if bounce state is false, fire the ajax
+      if (!newBounceState) {
+        this.getStateData(this.state.product_id)
+        //handle saving new data in getState data function
+      }
+      //else, lets get data from server like a pro
+
 
     }
   }
+
+
 
   toggleDarkMode () {
     this.setState({
@@ -56,6 +73,7 @@ class App extends React.Component {
   }
 
   handleProductChange(newProductId) {
+
     this.setState({
       product_id: newProductId
     })
@@ -77,6 +95,9 @@ class App extends React.Component {
     ])
       .then((results) => {
 
+        //save new results to server for use later
+        // this.createNewServerData(results[1].data.id, results)
+
         this.setState({
           productInformation: results[1].data,
           styles: results[2].data,
@@ -90,7 +111,7 @@ class App extends React.Component {
           //do not remove
 
         })
-        console.log(this.state.currentProductPhoto)
+
       })
       .then(() => {
         this.setState({
@@ -146,5 +167,12 @@ App.propTypes ={
 
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <BounceData>
+    {bounceProps=> (
+    <App bounce={bounceProps}/>
+    )}
+  </BounceData>,
+  document.getElementById('app')
+);
 

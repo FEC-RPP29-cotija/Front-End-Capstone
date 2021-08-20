@@ -93,6 +93,22 @@ module.exports = {
       .then(data => {
         return data.status
       })
+  },
+  getServerData: (productId) => {
+
+  },
+  createNewServerData: (productId, currentProductDataArray) => {
+
+    //create postObj
+    let obj = {
+      productId: productId,
+      currentProductDataArray: currentProductDataArray
+    }
+    return axios.post('/bounce', obj)
+      .then(data => {
+        console.log(data, "🔥")
+      })
+
   }
 
 

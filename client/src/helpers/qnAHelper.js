@@ -100,6 +100,20 @@ module.exports = {
     return currentQuestions
   },
 
+  bounceRequest: (oldBounceTime, newTime) => {
+    //create boolean that will represent if ajax should be fired
+    let bounce = false;
+
+
+
+
+
+
+    //return bounce boolean
+    return bounce
+
+  }
+
 }
 
 

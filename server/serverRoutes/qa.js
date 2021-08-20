@@ -167,5 +167,10 @@ module.exports = {
       res.send(200)
     })
 
+
+  },
+  bounce: (req, res) => {
+    console.log(req.body, "🔥")
+
   }
 }
