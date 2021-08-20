@@ -1,6 +1,7 @@
 const axios = require("axios");
 const TOKEN = require("../../config.js").GITHUB_TOKEN;
 const api = require("../../config.js").API;
+const fs = require('fs')
 
 const requestConfig = (method, url, data) => {
   return {
@@ -28,6 +29,23 @@ module.exports = {
       })
       .catch(err => console.log('resultErr', err));
   },
+  serverReviewsMeta:(req, res) => {
+    let id = req.url.split('=')[1]
+    // fs.readFile
+    fs.readFile(`./client/src/cachedData/reviews/meta${id}.txt`, (err, file) => {
+      console.log(err, "👀")
+      let finalFile = file.toString()
+      res.send(finalFile)
+      // console.log(err)
+
+    })
+
+
+
+
+  },
+
+
   reviewsHelpful: (req, res) => {
     axios(requestConfig('put', api + req.originalUrl.substring(1)))
       .then((data)=> {

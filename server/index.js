@@ -3,7 +3,7 @@ const app = express();
 const PORT = 3000;
 
 // SERVER ROUTES
-const { reviews, reviewsMeta, reviewsHelpful, reviewsReport, reviewsAdd, reviewsInteraction } = require("./serverRoutes/reviews.js");
+const { reviews, serverReviewsMeta, reviewsMeta, reviewsHelpful, reviewsReport, reviewsAdd, reviewsInteraction } = require("./serverRoutes/reviews.js");
 const { products, serverProductsStyle, serverProductsWithId, productsWithId, productsStyle, productsRelated } = require("./serverRoutes/products.js");
 const { bounce,getServerData, questions, answers, updateHelpfulness, updateAnswerHelpfulness, postQuestion, postAnswer, getUrl, addToReported, getReported, interactions} = require("./serverRoutes/qa.js");
 const { cart } = require("./serverRoutes/cart.js");
@@ -48,6 +48,7 @@ app.get('/products', products)
 
   .get('/serverProducts/:product_id?', serverProductsWithId)
   .get('/serverProduct/:styles?', serverProductsStyle)
+  .get('/serverReviews/meta/:product_id?', serverReviewsMeta)
 
 
 app.listen(PORT, () => {

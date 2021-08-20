@@ -6,7 +6,7 @@ import RelatedProductsModal from './RelatedProductsModal.jsx';
 import withClickTracker from '../withClickTracker.jsx';
 import helper from '../../helper-functions/rpHelpers.js';
 import {productsWithId, productsStyle, serverProductsWithId, serverProductsStyle} from "../../clientRoutes/products.js";
-import {reviewsMeta} from '../../clientRoutes/reviews.js';
+import {reviewsMeta, serverReviewsMeta} from '../../clientRoutes/reviews.js';
 import axios from 'axios';
 const TOKEN = require("../../../../config.js").GITHUB_TOKEN;
 const api = require("../../../../config.js").API;
@@ -40,6 +40,8 @@ class RelatedProducts extends React.Component {
     this.reviews = this.reviews.bind(this);
     this.serverProductData = this.serverProductData.bind(this)
     this.serverProductStyle = this.serverProductStyle.bind(this)
+    this.serverReviewsData = this.serverReviewsData.bind(this)
+    this.serverFitData = this.serverFitData.bind(this)
   }
 
   componentDidMount () {
@@ -49,47 +51,38 @@ class RelatedProducts extends React.Component {
     let reviewData = this.reviews();
 
       if (this.props.currentTime < 300) {
-        console.log('here')
-
-      this.serverProductData().then(serverProductData => {
-        this.serverProductStyle().then((styleData) => {
-
-              // console.log(styleData, '👌')
-              // let outfitPropsObj = helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData)
-              let allPropsObj = helper.compileRelatedProductsDataToProps(serverProductData, styleData)
-              console.log(allPropsObj)
-
-
-              // let values = [];
-              // let keys = Object.keys(localStorage);
-              // let i = keys.length;
-              // while ( i-- ) {
-              //   values.push( JSON.parse(localStorage.getItem(keys[i])) );
-              // }
-              this.setState({
-                relatedProducts: serverProductData,
-                relatedProductsStyles: styleData,
-                allPropsObj:allPropsObj,
-                // outfitPropsObj: outfitPropsObj,
-                // yourOutfitItems: values,
-                // reviewData: []
+        this.serverProductData().then(productData => {
+          this.serverProductStyle().then((styleData) => {
+            this.serverFitData().then((fitData) => {
+              this.serverReviewsData().then((reviewData) => {
+                  // console.log(stylData, '👌')
+                  // let outfitPropsObj = helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData.results)
+                let allPropsObj = helper.compileRelatedProductsDataToProps(productData, styleData)
+                let values = [];
+                let keys = Object.keys(localStorage);
+                let i = keys.length;
+                while ( i-- ) {
+                  values.push( JSON.parse(localStorage.getItem(keys[i])) );
+                }
+                this.setState({
+                  relatedProducts: productData,
+                  relatedProductsStyles: styleData,
+                  allPropsObj:allPropsObj,
+                  outfitPropsObj: fitData,
+                  yourOutfitItems: values,
+                  reviewData: reviewData
+                })
               })
-              console.log(this.state, '👌✅')
             })
-
-
-
-
-      })
-
-
+          })
+        })
       } else {
       product.then(data => {
         getStyle.then(styleData => {
           outFitData.then(fitData => {
             reviewData.then(reviewData => {
               let allPropsObj = helper.compileRelatedProductsDataToProps(data, styleData)
-              console.log(allPropsObj)
+              // console.log(allPropsObj)
               // console.log(data)
               // console.log(styleData)
               let values = [];
@@ -118,11 +111,39 @@ class RelatedProducts extends React.Component {
 
   componentDidUpdate (prevProps, prevState) {
     if (prevProps.state.product_id !== this.props.state.product_id) {
+
       let product = this.product();
       let getStyle = this.style();
       let outFitData = this.outFit();
       let reviewData = this.reviews();
 
+        if (this.props.currentTime < 300) {
+          this.serverProductData().then(productData => {
+            this.serverProductStyle().then((styleData) => {
+              this.serverFitData().then((fitData) => {
+                this.serverReviewsData().then((reviewData) => {
+                    // console.log(stylData, '👌')
+                    // let outfitPropsObj = helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData.results)
+                  let allPropsObj = helper.compileRelatedProductsDataToProps(productData, styleData)
+                  let values = [];
+                  let keys = Object.keys(localStorage);
+                  let i = keys.length;
+                  while ( i-- ) {
+                    values.push( JSON.parse(localStorage.getItem(keys[i])) );
+                  }
+                  this.setState({
+                    relatedProducts: productData,
+                    relatedProductsStyles: styleData,
+                    allPropsObj:allPropsObj,
+                    outfitPropsObj: fitData,
+                    yourOutfitItems: values,
+                    reviewData: reviewData
+                  })
+                })
+              })
+            })
+          })
+        }else {
       product.then(data => {
         getStyle.then(styleData => {
           outFitData.then(fitData => {
@@ -151,6 +172,29 @@ class RelatedProducts extends React.Component {
       })
     }
   }
+  }
+  serverFitData() {
+    return new Promise((resolve, reject) => {
+      let result =[]
+      this.props.state.relatedProducts.forEach((productId) => {
+        return serverProductsStyle(productId)
+          .then(styleData => {
+            let data = {
+              product_id: productId,
+              results: styleData.data
+            }
+
+
+
+            let outfitPropsObj = helper.compileYourOutfitDataToProps(this.props.state.productInformation, data);
+            resolve(outfitPropsObj)
+        //  console.log(outfitPropsObj)
+
+          })
+
+      })
+    })
+  }
 
     outFit() {
 
@@ -162,7 +206,8 @@ class RelatedProducts extends React.Component {
         })
         .then((styleData)=> {
           // console.log(styleData)
-          let outfitPropsObj = helper.compileYourOutfitDataToProps(this.props.state.productInformation , styleData.data);
+          let outfitPropsObj = helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData.data);
+          console.log(styleData, '🔥')
           resolve(outfitPropsObj);
         })
         .catch(err=> {
@@ -177,7 +222,7 @@ class RelatedProducts extends React.Component {
         this.props.state.relatedProducts.forEach((productId) => {
           return serverProductsStyle(productId)
             .then(data => {
-              console.log(data, '🔥')
+              // console.log(data, '🔥')
               // data.data = {
               //   product_id:productId
               // }
@@ -213,7 +258,8 @@ class RelatedProducts extends React.Component {
 
               if (result.length === this.props.state.relatedProducts.length) {
                 result.sort((a, b) => a['product_id'] - b['product_id']);
-                console.log(result)
+                // console.log(result)
+
                 resolve(result)
               }
             })
@@ -254,6 +300,22 @@ class RelatedProducts extends React.Component {
              })
          })
        })
+     }
+     serverReviewsData() {
+      return new Promise((resolve, reject) => {
+        let result = [];
+        this.props.state.relatedProducts.forEach((productId) => {
+          return serverReviewsMeta(productId)
+            .then(data => {
+              // console.log(data, "✅")
+              result.push(data.data);
+              if (result.length === this.props.state.relatedProducts.length) {
+                result.sort((a, b) => a['product_id'] - b['product_id']);
+                resolve(result);
+              }
+            })
+        })
+      })
      }
 
      reviews () {

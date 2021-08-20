@@ -50,9 +50,10 @@ module.exports = {
 
   serverProductsStyle: (req, res) => {
     let id = req.url.split('=')[1]
+    // console.log(id)
 
     fs.readFile(`./client/src/cachedData/relatedProducts/style${id}.txt`, (err, file) => {
-  //  console.log(err, "✅")
+  //  console.log(file, "✅")
       let finalFile = file.toString()
       res.send(finalFile)
     })

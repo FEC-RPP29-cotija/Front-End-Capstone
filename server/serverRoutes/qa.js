@@ -207,7 +207,7 @@ module.exports = {
   },
   getServerData: (req, res) => {
     let id = req.url.split('=')[1]
-    console.log(id)
+    // console.log(id)
     // console.log(id)
     fs.readFile(`./client/src/cachedData/${id}.txt`, (err, file) => {
       let final = JSON.parse(file.toString())

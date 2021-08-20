@@ -1,7 +1,7 @@
 
 const helper = {
   compileRelatedProductsDataToProps: (relatedProducts, relatedProductsStyles) => {
-    console.log(relatedProductsStyles, "✅")
+    // console.log(relatedProductsStyles, "✅")
     let allPropsObj = {};
     let relatedProductsCopy = relatedProducts.slice();
     let relatedProductsStylesCopy= relatedProductsStyles.slice();
@@ -33,13 +33,14 @@ const helper = {
         'photoUrl': firstResult['photos'][0],
       };
     })
-     console.log(Object.values(allPropsObj), "🤙")
+
 
     return Object.values(allPropsObj);
   },
 
   compileYourOutfitDataToProps: (currentProductInfo, currentProductStyles) => {
     let outfitPropsObj = {};
+    // console.log(currentProductInfo)
     let currentProductInfoCopy = Object.assign(currentProductInfo);
 
     outfitPropsObj['product_id'] = currentProductInfoCopy.id;
