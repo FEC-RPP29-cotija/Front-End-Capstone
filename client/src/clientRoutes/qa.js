@@ -96,6 +96,11 @@ module.exports = {
   },
   getServerData: (productId) => {
 
+    return axios.get(`/serverData/:id=${productId}`)
+      .then((data) => {
+        return data.data
+      })
+
   },
   createNewServerData: (productId, currentProductDataArray) => {
 
@@ -106,7 +111,8 @@ module.exports = {
     }
     return axios.post('/bounce', obj)
       .then(data => {
-        console.log(data, "🔥")
+        return data
+
       })
 
   }

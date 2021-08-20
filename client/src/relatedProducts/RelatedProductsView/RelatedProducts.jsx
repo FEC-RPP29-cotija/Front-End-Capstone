@@ -111,6 +111,8 @@ class RelatedProducts extends React.Component {
   }
 
     outFit() {
+      //check time current time
+      //if
       return new Promise((resolve, reject) => {
         axios.get(api + `products/${this.props.state.product_id}/styles`, {
           headers: {

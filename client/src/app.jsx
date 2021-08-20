@@ -9,7 +9,7 @@ import QnAClicks from './questions-n-answers/QnAClicks.jsx';
 // CLIENT ROUTES
 import { reviews, reviewsMeta } from "./clientRoutes/reviews.js";
 import { products, productsWithId, productsStyle, productsRelated } from "./clientRoutes/products.js";
-import { questions, createNewServerData } from "./clientRoutes/qa.js";
+import { questions, createNewServerData, getServerData} from "./clientRoutes/qa.js";
 import { cart } from "./clientRoutes/cart.js";
 import BounceData from './CacheData.jsx';
 
@@ -37,7 +37,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-   console.log(this.props.bounce)
+
 
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = Object.fromEntries(urlSearchParams.entries());
@@ -47,17 +47,37 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
 
+    //used cached data
     if (prevState.product_id !== this.state.product_id) {
 
       let newBounceState = this.props.bounce.getBounceDataState()
-
       console.log(newBounceState)
+
+
       //if bounce state is false, fire the ajax
       if (!newBounceState) {
-        this.getStateData(this.state.product_id)
+        //return saved data
+        getServerData(this.state.product_id)
+          .then((serverData) => {
+            console.log(serverData)
+            this.setState({
+              productInformation:serverData[1].data,
+              styles:serverData[2].data,
+              relatedProducts: serverData[3].data,
+              //do not remove please
+              qNa:serverData[4].data,
+              currentItemName:serverData[1].data.name,
+              product_id:serverData[1].data.id,
+              ratings: serverData[5].data.ratings,
+              currentProductPhoto: serverData[2].data[0].photos[0].thumbnail_url
+            })
+          })
         //handle saving new data in getState data function
+      } else {
+        this.getStateData(this.state.product_id)
       }
       //else, lets get data from server like a pro
+
 
 
     }
@@ -96,21 +116,38 @@ class App extends React.Component {
       .then((results) => {
 
         //save new results to server for use later
-        // this.createNewServerData(results[1].data.id, results)
+        return createNewServerData(results[1].data.id, results)
+          .then((d) => {
 
-        this.setState({
-          productInformation: results[1].data,
-          styles: results[2].data,
-          relatedProducts: results[3].data,
-          //do not remove please
-          qNa: results[4].data,
-          currentItemName:results[1].data.name,
-          product_id:results[1].data.id,
-          ratings: results[5].data.ratings,
-          currentProductPhoto: results[2].data[0].photos[0].thumbnail_url
-          //do not remove
 
-        })
+            // console.log(d, '🤙')
+            console.log(d.data)
+
+            this.setState({
+              productInformation: d.data[1].data,
+              styles:d.data[2].data,
+              relatedProducts: d.data[3].data,
+              //do not remove please
+              qNa: d.data[4].data,
+              currentItemName:d.data[1].data.name,
+              product_id:d.data[1].data.id,
+              ratings: d.data[5].data.ratings,
+              currentProductPhoto: d.data[2].data[0].photos[0].thumbnail_url
+            })
+            // this.setState({
+            //   productInformation: results[1].data,
+            //   styles: results[2].data,
+            //   relatedProducts: results[3].data,
+            //   //do not remove please
+            //   qNa: results[4].data,
+            //   currentItemName:results[1].data.name,
+            //   product_id:results[1].data.id,
+            //   ratings: results[5].data.ratings,
+            //   currentProductPhoto: results[2].data[0].photos[0].thumbnail_url
+            //   //do not remove
+
+            // })
+          })
 
       })
       .then(() => {

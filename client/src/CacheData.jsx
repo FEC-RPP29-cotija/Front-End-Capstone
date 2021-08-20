@@ -23,23 +23,26 @@ class BounceData extends React.Component {
     //create new date
     //compare to old
     //if less than 5 minutes has passed, return cached data
-    let bounce = false;
+    let bounce = true;
     let newDate = new Date().getSeconds()
     let difference = newDate - this.state.currentTime
-    console.log(difference)
+
+    console.log(newDate)
 
     //less then 300 seconds - bounce that requeest
-    if (difference <  300) {
-       bounce = true;
-       return bounce;
-    } else {
+    if (newDate < 500) {
+       bounce = false;
 
-      this.setState({
-        currentTime: newDate
-      })
+    } else {
+      bounce = true
+      console.log('hi')
+
     }
 
 
+
+
+    return bounce
 
 
   }

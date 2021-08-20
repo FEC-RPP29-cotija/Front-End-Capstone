@@ -14,7 +14,7 @@ module.exports = {
     let request = api + `qa/questions?product_id=${Number(url[1])}&page=1&count=25`
 
     axios.get(request, {
-      headers: {
+      headers: { 
         'Authorization': TOKEN
       }
     }).then((data) => {
@@ -171,6 +171,50 @@ module.exports = {
   },
   bounce: (req, res) => {
     console.log(req.body, "🔥")
+    //stringify date
+    let stingifiedData = JSON.stringify(req.body.currentProductDataArray)
+
+
+    //find or create record with current id\
+
+
+    let write = async() => {
+      let value = new Promise((resolve, reject) => {
+        fs.writeFile(`./client/src/cachedData/${req.body.productId.toString()}.txt`, stingifiedData, (err, fileData) => {
+          if(err) {console.log(err)}
+          resolve(true)
+        })
+      })
+
+      let final= await(value);
+      return final
+    }
+
+    write().then(data=> {
+      if (data) {
+
+        fs.readFile(`./client/src/cachedData/${req.body.productId.toString()}.txt`, (err, files) => {
+          //convert that buffer
+          let returnData = JSON.parse(files.toString())
+
+          res.send(returnData)
+
+        })
+
+      }
+    })
+
+
+
+  },
+  getServerData: (req, res) => {
+    let id = req.url.split('=')[1]
+    console.log(id)
+    fs.readFile(`./client/src/cachedData/${id}.txt`, (err, file) => {
+      let final = JSON.parse(file.toString())
+      console.log(final, "👌")
+      res.send(final)
+    })
 
   }
 }
