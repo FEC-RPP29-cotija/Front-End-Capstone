@@ -1,6 +1,7 @@
 
 const helper = {
   compileRelatedProductsDataToProps: (relatedProducts, relatedProductsStyles) => {
+    console.log(relatedProductsStyles, "✅")
     let allPropsObj = {};
     let relatedProductsCopy = relatedProducts.slice();
     let relatedProductsStylesCopy= relatedProductsStyles.slice();
@@ -32,6 +33,7 @@ const helper = {
         'photoUrl': firstResult['photos'][0],
       };
     })
+     console.log(Object.values(allPropsObj), "🤙")
 
     return Object.values(allPropsObj);
   },

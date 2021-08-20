@@ -4,7 +4,7 @@ const PORT = 3000;
 
 // SERVER ROUTES
 const { reviews, reviewsMeta, reviewsHelpful, reviewsReport, reviewsAdd, reviewsInteraction } = require("./serverRoutes/reviews.js");
-const { products, productsWithId, productsStyle, productsRelated } = require("./serverRoutes/products.js");
+const { products, serverProductsStyle, serverProductsWithId, productsWithId, productsStyle, productsRelated } = require("./serverRoutes/products.js");
 const { bounce,getServerData, questions, answers, updateHelpfulness, updateAnswerHelpfulness, postQuestion, postAnswer, getUrl, addToReported, getReported, interactions} = require("./serverRoutes/qa.js");
 const { cart } = require("./serverRoutes/cart.js");
 
@@ -45,6 +45,9 @@ app.get('/products', products)
   .post('/qa/interactions', interactions)
   .post('/bounce', bounce)
   .get('/serverData/:id?', getServerData)
+
+  .get('/serverProducts/:product_id?', serverProductsWithId)
+  .get('/serverProduct/:styles?', serverProductsStyle)
 
 
 app.listen(PORT, () => {

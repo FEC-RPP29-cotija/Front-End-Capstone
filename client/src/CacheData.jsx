@@ -25,7 +25,7 @@ class BounceData extends React.Component {
     //if less than 5 minutes has passed, return cached data
     let bounce = true;
     let newDate = new Date().getSeconds()
-    let difference = newDate - this.state.currentTime
+
 
     console.log(newDate)
 
@@ -39,6 +39,10 @@ class BounceData extends React.Component {
 
     }
 
+    this.setState({
+      currentTime: newDate
+    })
+
 
 
 
@@ -50,7 +54,9 @@ class BounceData extends React.Component {
 
   render () {
     const renderProps = {
+      currentTime: this.state.currentTime,
       getBounceDataState: this.getBounceDataState
+
 
     }
 

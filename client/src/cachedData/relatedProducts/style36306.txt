@@ -1,0 +1,313 @@
+[
+    {
+        "style_id": 214528,
+        "name": "White Sole",
+        "original_price": "120.00",
+        "sale_price": null,
+        "default?": false,
+        "photos": [
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1561861422-a549073e547a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1561861422-a549073e547a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80"
+            },
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+            }
+        ],
+        "skus": {
+            "1242493": {
+                "quantity": 14,
+                "size": "7"
+            },
+            "1242494": {
+                "quantity": 25,
+                "size": "7.5"
+            },
+            "1242495": {
+                "quantity": 9,
+                "size": "8"
+            },
+            "1242496": {
+                "quantity": 2,
+                "size": "8.5"
+            },
+            "1242497": {
+                "quantity": 18,
+                "size": "9"
+            },
+            "1242498": {
+                "quantity": 12,
+                "size": "9.5"
+            },
+            "1242499": {
+                "quantity": 10,
+                "size": "10"
+            },
+            "1242500": {
+                "quantity": 18,
+                "size": "10.5"
+            },
+            "1242501": {
+                "quantity": 11,
+                "size": "11"
+            },
+            "1242502": {
+                "quantity": 35,
+                "size": "11.5"
+            },
+            "1242503": {
+                "quantity": 25,
+                "size": "12"
+            }
+        }
+    },
+    {
+        "style_id": 214529,
+        "name": "Black Sole",
+        "original_price": "120.00",
+        "sale_price": null,
+        "default?": false,
+        "photos": [
+            {
+                "thumbnail_url": "https://images.unsplash.com/uploads/1412198532414025532c0/6a31309c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/uploads/1412198532414025532c0/6a31309c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80"
+            },
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1454024183771-42d54053cd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1454024183771-42d54053cd75?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+            }
+        ],
+        "skus": {
+            "1242504": {
+                "quantity": 14,
+                "size": "7"
+            },
+            "1242505": {
+                "quantity": 25,
+                "size": "7.5"
+            },
+            "1242506": {
+                "quantity": 9,
+                "size": "8"
+            },
+            "1242507": {
+                "quantity": 2,
+                "size": "8.5"
+            },
+            "1242508": {
+                "quantity": 18,
+                "size": "9"
+            },
+            "1242509": {
+                "quantity": 12,
+                "size": "9.5"
+            },
+            "1242510": {
+                "quantity": 10,
+                "size": "10"
+            },
+            "1242511": {
+                "quantity": 18,
+                "size": "10.5"
+            },
+            "1242512": {
+                "quantity": 11,
+                "size": "11"
+            },
+            "1242513": {
+                "quantity": 35,
+                "size": "11.5"
+            },
+            "1242514": {
+                "quantity": 25,
+                "size": "12"
+            }
+        }
+    },
+    {
+        "style_id": 214530,
+        "name": "Tan Sole",
+        "original_price": "120.00",
+        "sale_price": null,
+        "default?": false,
+        "photos": [
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1465124982537-9f918f1e1aaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1465124982537-9f918f1e1aaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
+            },
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
+            }
+        ],
+        "skus": {
+            "1242515": {
+                "quantity": 14,
+                "size": "7"
+            },
+            "1242516": {
+                "quantity": 25,
+                "size": "7.5"
+            },
+            "1242517": {
+                "quantity": 9,
+                "size": "8"
+            },
+            "1242518": {
+                "quantity": 2,
+                "size": "8.5"
+            },
+            "1242519": {
+                "quantity": 18,
+                "size": "9"
+            },
+            "1242520": {
+                "quantity": 12,
+                "size": "9.5"
+            },
+            "1242521": {
+                "quantity": 10,
+                "size": "10"
+            },
+            "1242522": {
+                "quantity": 18,
+                "size": "10.5"
+            },
+            "1242523": {
+                "quantity": 11,
+                "size": "11"
+            },
+            "1242524": {
+                "quantity": 35,
+                "size": "11.5"
+            },
+            "1242525": {
+                "quantity": 25,
+                "size": "12"
+            }
+        }
+    },
+    {
+        "style_id": 214531,
+        "name": "Red Sole",
+        "original_price": "120.00",
+        "sale_price": null,
+        "default?": false,
+        "photos": [
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1454177643390-7f100d1bbeec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1454177643390-7f100d1bbeec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80"
+            }
+        ],
+        "skus": {
+            "1242526": {
+                "quantity": 14,
+                "size": "7"
+            },
+            "1242527": {
+                "quantity": 25,
+                "size": "7.5"
+            },
+            "1242528": {
+                "quantity": 9,
+                "size": "8"
+            },
+            "1242529": {
+                "quantity": 2,
+                "size": "8.5"
+            },
+            "1242530": {
+                "quantity": 18,
+                "size": "9"
+            },
+            "1242531": {
+                "quantity": 12,
+                "size": "9.5"
+            },
+            "1242532": {
+                "quantity": 10,
+                "size": "10"
+            },
+            "1242533": {
+                "quantity": 18,
+                "size": "10.5"
+            },
+            "1242534": {
+                "quantity": 11,
+                "size": "11"
+            },
+            "1242535": {
+                "quantity": 35,
+                "size": "11.5"
+            },
+            "1242536": {
+                "quantity": 25,
+                "size": "12"
+            }
+        }
+    },
+    {
+        "style_id": 214532,
+        "name": "Yellow Sole",
+        "original_price": "120.00",
+        "sale_price": null,
+        "default?": false,
+        "photos": [
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1499013819532-e4ff41b00669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1499013819532-e4ff41b00669?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1100&q=80"
+            },
+            {
+                "thumbnail_url": "https://images.unsplash.com/photo-1459631836437-1c2824882e3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+                "url": "https://images.unsplash.com/photo-1459631836437-1c2824882e3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
+            }
+        ],
+        "skus": {
+            "1242537": {
+                "quantity": 14,
+                "size": "7"
+            },
+            "1242538": {
+                "quantity": 25,
+                "size": "7.5"
+            },
+            "1242539": {
+                "quantity": 9,
+                "size": "8"
+            },
+            "1242540": {
+                "quantity": 2,
+                "size": "8.5"
+            },
+            "1242541": {
+                "quantity": 18,
+                "size": "9"
+            },
+            "1242542": {
+                "quantity": 12,
+                "size": "9.5"
+            },
+            "1242543": {
+                "quantity": 10,
+                "size": "10"
+            },
+            "1242544": {
+                "quantity": 18,
+                "size": "10.5"
+            },
+            "1242545": {
+                "quantity": 11,
+                "size": "11"
+            },
+            "1242546": {
+                "quantity": 35,
+                "size": "11.5"
+            },
+            "1242547": {
+                "quantity": 25,
+                "size": "12"
+            }
+        }
+    }
+]

@@ -28,6 +28,7 @@ class Reviews extends React.Component {
   };
 
   componentDidMount() {
+    //here
     this.getStateData(this.state.loaded, this.state.sortBy);
   }
 
@@ -36,6 +37,8 @@ class Reviews extends React.Component {
       this.getStateData(this.state.loaded, this.state.sortBy);
     }
   }
+
+  //here
 
   getStateData(loaded, sortBy) {
     reviews(1, 1000, sortBy, this.props.product_id)

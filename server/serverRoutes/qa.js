@@ -170,7 +170,7 @@ module.exports = {
 
   },
   bounce: (req, res) => {
-    console.log(req.body, "🔥")
+    // console.log(req.body, "🔥")
     //stringify date
     let stingifiedData = JSON.stringify(req.body.currentProductDataArray)
 
@@ -204,15 +204,14 @@ module.exports = {
       }
     })
 
-
-
   },
   getServerData: (req, res) => {
     let id = req.url.split('=')[1]
     console.log(id)
+    // console.log(id)
     fs.readFile(`./client/src/cachedData/${id}.txt`, (err, file) => {
       let final = JSON.parse(file.toString())
-      console.log(final, "👌")
+      // console.log(final, "👌")
       res.send(final)
     })
 

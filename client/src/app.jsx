@@ -177,7 +177,10 @@ class App extends React.Component {
             state = {this.state}/>
           <RelatedProducts
             state={this.state}
-            handleProductChange={this.handleProductChange}/>
+            handleProductChange={this.handleProductChange}
+            currentTime={this.props.bounce.currentTime}
+
+          />
           <QnAClicks>
             {allClicksProps => (
               <QuestionsNAnswers
@@ -190,7 +193,9 @@ class App extends React.Component {
             )}
           </QnAClicks>
           <RatingsAndReviews
-            product_id={this.state.product_id}/>
+            product_id={this.state.product_id}
+            currentTime={this.props.bounce.currentTime}
+          />
         </div>
       )
     } else {
