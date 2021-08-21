@@ -34,6 +34,7 @@ class QnAClicks extends React.Component {
     this.addQuestion = this.addQuestion.bind(this)
     this.closeQuestionForm = this.closeQuestionForm.bind(this)
     this.resetState = this.resetState.bind(this)
+    this.resetQuestionButton = this.resetQuestionButton.bind(this)
   }
   componentDidMount() {
     if (this.props.children().props.data.length - 1 === 0 || this.props.children().props.data.length - 1 === 1 || !this.props.children().props.data.length){
@@ -56,6 +57,12 @@ class QnAClicks extends React.Component {
         showQAns: this.state.showQAns
       })
     }
+  }
+
+  resetQuestionButton() {
+    this.setState({
+      showQuestionButton: !this.state.showQuestionButton
+    })
   }
 
   moreAnsweredQorLoadMoreAnswers(currentIndex) {
@@ -198,7 +205,8 @@ class QnAClicks extends React.Component {
       addAnswerOnClick: this.addAnswerOnClick,
       addQuestion: this.addQuestion,
       closeQuestionForm: this.closeQuestionForm,
-      resetState: this.resetState
+      resetState: this.resetState,
+      resetQuestionButton: this.resetQuestionButton
     }
 
     return typeof this.props.children === 'function'

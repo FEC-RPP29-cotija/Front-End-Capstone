@@ -44,6 +44,9 @@ class RatingsBreakdown extends React.Component {
 
         this.props.setCharacteristics(data.characteristics);
 
+        // give the total num of reviews to the reviews list component
+        this.props.setNumReviews(count);
+
         this.setState(
           {
             totalRatings: count,
@@ -87,7 +90,8 @@ RatingsBreakdown.propTypes = {
   starFilterClick: PropTypes.func,
   hideIfNoReviews: PropTypes.func,
   setCharacteristics: PropTypes.func,
-  hidden: PropTypes.bool
+  hidden: PropTypes.bool,
+  setNumReviews: PropTypes.func
 }
 
 export default RatingsBreakdown;

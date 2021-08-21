@@ -110,6 +110,16 @@ class QuestionsNAnswers extends React.Component {
 
       })
     }
+
+
+    // if (prevState.dynamicData.length !== this.state.dynamicData.length) {
+    //   if (this.state.dynamicData.length <= 2 && this.props.allClicksProps.showQuestionButton) {
+    //     this.props.allClicksProps.resetQuestionButton()
+    //   }
+
+      // console.log(!this.props.showQuestionButton)
+
+    // }
   }
   searchFilter(searchValue) {
     let copy = this.state.dynamicData.slice()
@@ -130,6 +140,10 @@ class QuestionsNAnswers extends React.Component {
         dynamicData: finalData
       })
     }
+
+
+
+
   }
   questionSearchChange(e) {
     let newCount = this.state.qSearchCharCount + 1

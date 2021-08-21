@@ -6,15 +6,11 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-
 .column-one {
   display: flex;
   flex-wrap: wrap;
   margin-left: 13%;
 }
-
-
 
 .column-two {
   display: flex;
@@ -24,12 +20,10 @@
   justify-content:space-between;
 }
 
-
 /*Image Gallery */
 .image-gallery {
   display: flex;
   z-index: 2;
-
 }
 
 .main-image {
@@ -85,7 +79,6 @@
   cursor: -webkit-zoom-in;
   cursor: zoom-in;
   z-index: 0;
-
 }
 
 .selected-image {
@@ -102,18 +95,14 @@
 }
 
 .up-and-down-arrow {
-    color:white;
-    background: transparent;
-    border: transparent;
-    font-weight: bold;
-    font-size: 1.5em;
+  color:white;
+  background: transparent;
+  border: transparent;
+  font-weight: bold;
+  font-size: 1.5em;
 }
 
-
-
 /*expanded view */
-
-
 .overview-expanded {
   left: 0;
   top: 0;
@@ -127,7 +116,6 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-
 }
 
 .expanded-view-div {
@@ -145,10 +133,8 @@
   display: flex;
   flex-direction: row;
   z-index: 3;
-
-
-
 }
+
 .expanded-view-main-photo {
   width: 90em;
   height: 90em;
@@ -182,7 +168,6 @@
   margin-left: .5em;
 }
 
-
 .expanded-view-left-arrow {
   z-index: 6;
   margin-right: -70px;
@@ -197,8 +182,6 @@
 .expanded-view-left-arrow:hover {
   color: white;
 }
-
-
 
 .expanded-view-number-buttons {
   font-family: Courier New;
@@ -233,19 +216,7 @@
   color: white;
 }
 
-/*
-.expanded-view-main-photo:hover {
-  zoom: 250%;
-
-}
-*/
-
 /*Product Info */
-.product-info {
-
-
-}
-
 .product-original-price {
   text-decoration: line-through;
 }
@@ -253,13 +224,6 @@
 .product-sale-price {
   color: red;
 }
-
-
-.style-selector {
-
-}
-
-
 
 /*Style Selector*/
 .style-selector-image {
@@ -278,17 +242,14 @@
   color: white;
 }
 
-
-
 /*AddToCart*/
-
 .select-items {
   display: none;
     flex-direction: column;
     border: 1px solid black;
     z-index: 3;
     width: 30%;
-    margin-right: -25%;
+    margin-right: -33%;
     background: white;
     margin-bottom: -4em;
     border-radius: 5%;
@@ -350,7 +311,7 @@
   padding: 10px 20px 10px 20px;
   border: solid #4d4d4d 1px;
   text-decoration: none;
-  width: 30%;
+  width: 25%;
 }
 
 .selectSize {
@@ -364,7 +325,7 @@
   padding: 10px 20px 10px 20px;
   border: solid #4d4d4d 1px;
   text-decoration: none;
-  width: 66%;
+  width: 60%;
 }
 
 .favoriteStar {
@@ -387,5 +348,3 @@
   box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
   /* Lowering the shadow */
 }
-
-/*Expanded View*/

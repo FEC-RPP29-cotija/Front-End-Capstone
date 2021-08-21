@@ -77,6 +77,8 @@
   font-size: 4.375rem;
   font-weight: bolder;
   padding-right: 0.625rem;
+  color: rgb(135, 59, 59);
+  -webkit-text-stroke: 0.125rem black;
 }
 
 .stars-count-wrapper {
@@ -125,6 +127,10 @@
 .bar-count {
   font-size: smaller;
   width: 2.5rem;
+}
+
+.bar-wrapper:hover + .bar-count {
+  font-weight: bold;
 }
 
 .bar-wrapper {
@@ -445,9 +451,14 @@
   width: 100%;
 }
 
+.irt:last-of-type {
+  border-bottom: none;
+}
+
 .review-buttons {
   width: 100%;
   padding: 0.625rem 0rem 0.625rem 0rem;
+  border-top: 0.0625rem solid rgb(135, 59, 59);
 }
 
 .review-button
@@ -457,6 +468,7 @@
   padding: 0rem 1.25rem 0rem 1.25rem;
   background-color: white;
   cursor: pointer;
+  margin-bottom: 0.625rem;
 }
 
 /* PHOTO MODAL */
