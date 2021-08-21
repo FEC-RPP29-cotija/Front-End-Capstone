@@ -27,11 +27,14 @@ class App extends React.Component {
       currentProductPhoto:'',
       loaded: false,
       ratings: {},
-      isDarkMode: false
+      isDarkMode: false,
+      time: 0,
+
     }
     this.handleProductChange = this.handleProductChange.bind(this);
     this.getStateData = this.getStateData.bind(this);
     this.toggleDarkMode = this.toggleDarkMode.bind(this);
+    this.handleBounce = this.handleBounce.bind(this)
   }
 
   componentDidMount() {
@@ -47,7 +50,21 @@ class App extends React.Component {
 
     }
   }
+  handleBounce() {
+    let newTime = new Date().getSeconds()
+    console.log(newTime)
 
+    let result = false;
+    if (newTime > 65) {
+      result = true
+    }
+    this.setState({
+      time: newTime
+    })
+    return result
+
+
+  }
   toggleDarkMode () {
     this.setState({
       isDarkMode: !this.state.isDarkMode
@@ -76,10 +93,12 @@ class App extends React.Component {
 
     ])
       .then((results) => {
+        // console.log(results[3].data, "🤙")
 
         this.setState({
           productInformation: results[1].data,
           styles: results[2].data,
+          styles2:results[2],
           relatedProducts: results[3].data,
           //do not remove please
           qNa: results[4].data,
@@ -90,7 +109,7 @@ class App extends React.Component {
           //do not remove
 
         })
-        console.log(this.state.currentProductPhoto)
+        // console.log(this.state.styles)
       })
       .then(() => {
         this.setState({
@@ -118,6 +137,8 @@ class App extends React.Component {
           <Overview
             state = {this.state}/>
           <RelatedProducts
+          time={this.state.time}
+            handleBounce={this.handleBounce}
             state={this.state}
             handleProductChange={this.handleProductChange}/>
           <QnAClicks>

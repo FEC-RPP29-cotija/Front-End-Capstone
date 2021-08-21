@@ -38,7 +38,7 @@ class Reviews extends React.Component {
   }
 
   getStateData(loaded, sortBy) {
-    reviews(1, 1000, sortBy, this.props.product_id)
+    reviews(1, 25, sortBy, this.props.product_id)
       .then(({ data }) => {
         // save the num of reviews in total
         let numReviews = data.length;

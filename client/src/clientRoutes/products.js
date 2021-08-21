@@ -4,6 +4,16 @@ module.exports = {
   products: () => {
     return axios.get('/products');
   },
+  postNewRelatedProductsData: (data) => {
+    console.log(data)
+    return axios.post(`/serverStorage/relatedProducts`, data);
+  },
+  getRelatedProdServerData:(id) => {
+    return axios.get(`/serverStorage/:relatedProducts=${id}`)
+
+  }
+
+,
   productsWithId: (id) => {
     return axios.get(`/products/:product_id?${id}`);
   },

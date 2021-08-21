@@ -4,7 +4,7 @@ const PORT = 3000;
 
 // SERVER ROUTES
 const { reviews, reviewsMeta, reviewsHelpful, reviewsReport, reviewsAdd, reviewsInteraction } = require("./serverRoutes/reviews.js");
-const { products, productsWithId, productsStyle, productsRelated } = require("./serverRoutes/products.js");
+const { products, getRelatedProdServerData, postNewRelatedProductsData, productsWithId, productsStyle, productsRelated } = require("./serverRoutes/products.js");
 const { questions, answers, updateHelpfulness, updateAnswerHelpfulness, postQuestion, postAnswer, getUrl, addToReported, getReported, interactions} = require("./serverRoutes/qa.js");
 const { cart } = require("./serverRoutes/cart.js");
 
@@ -13,7 +13,9 @@ const multer = require('multer')
 // const upload = multer({dest:'./temp'})
 
 
-app.use(express.json());
+app.use(express.json({limit:'100mb'}));
+app.use(express.urlencoded({ extended: false }));
+
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static('client/dist'));
 
@@ -43,6 +45,9 @@ app.get('/products', products)
   .post('/reviews/add', reviewsAdd)
   .post('/reviews/interaction', reviewsInteraction)
   .post('/qa/interactions', interactions)
+
+  .post('/serverStorage/relatedProducts', postNewRelatedProductsData)
+  .get('/serverStorage/:relatedProducts', getRelatedProdServerData)
 
 
 app.listen(PORT, () => {

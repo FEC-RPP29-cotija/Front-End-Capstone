@@ -5,7 +5,7 @@ import YourOutfitList from '../YourOutfitView/YourOutfitList.jsx';
 import RelatedProductsModal from './RelatedProductsModal.jsx';
 import withClickTracker from '../withClickTracker.jsx';
 import helper from '../../helper-functions/rpHelpers.js';
-import {productsWithId, productsStyle} from "../../clientRoutes/products.js";
+import {productsWithId, productsStyle, postNewRelatedProductsData, getRelatedProdServerData} from "../../clientRoutes/products.js";
 import {reviewsMeta} from '../../clientRoutes/reviews.js';
 import axios from 'axios';
 const TOKEN = require("../../../../config.js").GITHUB_TOKEN;
@@ -41,73 +41,409 @@ class RelatedProducts extends React.Component {
   }
 
   componentDidMount () {
-    let product = this.product();
-    let getStyle = this.style();
-    let outFitData = this.outFit();
-    let reviewData = this.reviews();
 
-    product.then(data => {
-      getStyle.then(styleData => {
-        outFitData.then(fitData => {
-          reviewData.then(reviewData => {
-            let allPropsObj = helper.compileRelatedProductsDataToProps(data, styleData)
+    //  console.log(this.props.state.relatedProducts)
+    //  console.log(this.props.state.styles)
+    // get saved data
 
-            let values = [];
-            let keys = Object.keys(localStorage);
-            let i = keys.length;
-            while ( i-- ) {
-              values.push( JSON.parse(localStorage.getItem(keys[i])) );
-            }
+    let newtime =this.props.handleBounce()
+    console.log(newtime)
+    if(this.props.time <=50) {
 
-            this.setState({
-              relatedProducts: data,
-              relatedProductsStyles: styleData,
-              allPropsObj:allPropsObj,
-              outfitPropsObj: fitData,
-              yourOutfitItems: values,
-              reviewData: reviewData
-            })
-          })
-        })
+
+     getRelatedProdServerData(this.props.state.product_id)
+      .then(data => {
+        console.log('server data received')
+
+      this.setState({
+        relatedProducts: data.data[0].relatedProducts,
+        relatedProductsStyles: data.data[0].relatedProductsStyles,
+        allPropsObj:data.data[0].allPropsObj,
+        outfitPropsObj: data.data[0].outfitPropsObj,
+        yourOutfitItems: data.data[0].yourOutfitItems,
+        reviewData: data.data[0].reviewData
       })
-    })
-  }
 
 
-  componentDidUpdate (prevProps, prevState) {
-    if (prevProps.state.product_id !== this.props.state.product_id) {
-      let product = this.product();
-      let getStyle = this.style();
-      let outFitData = this.outFit();
-      let reviewData = this.reviews();
 
-      product.then(data => {
-        getStyle.then(styleData => {
-          outFitData.then(fitData => {
-            reviewData.then(reviewData => {
+      })
+    } else {
+        let fetchProducts = () => {
 
-            let allPropsObj = helper.compileRelatedProductsDataToProps(data, styleData)
-            let values = [];
-            let keys = Object.keys(localStorage);
-            let i = keys.length;
 
-            while ( i-- ) {
-              values.push( JSON.parse(localStorage.getItem(keys[i])) );
-              }
 
-            this.setState({
-             relatedProducts: data,
-             relatedProductsStyles: styleData,
-             allPropsObj:allPropsObj,
-             outfitPropsObj: fitData,
-             yourOutfitItems: values,
-             reviewData: reviewData
-            })
+
+      return new Promise((resolve, reject) => {
+
+        let newS =[]
+        let result =[]
+        let newP = []
+        let newR =[]
+        let reviewData=[];
+        this.props.state.relatedProducts.forEach((productId) => {
+
+          productsWithId(productId).then(p => {
+
+            newP.push(p.data)
+            productsStyle(productId).then(s => {
+              newS.push(s)
+              reviewsMeta(productId).then(r => {
+                newR.push(r.data)
+                // newS.push(s)
+                result = [newP, newS, newR]
+                if (result[0].length === this.props.state.relatedProducts.length && result[1].length === this.props.state.relatedProducts.length) {
+                  resolve(result)
+                }
+              })
             })
           })
         })
       })
     }
+
+
+    fetchProducts().then((currentProductsAndStyles) => {
+
+
+      let sortedProducts = (data) => {
+        let result = data.sort((a, b) => {
+          return a.id -b.id
+        })
+        return result
+      }
+
+      let finalProducts = sortedProducts(currentProductsAndStyles[0])
+
+      let sortStyles = (data) => {
+
+        let result =[];
+        data.forEach((style) => {
+
+          let splitted = style.config.url.split('?')
+          let curId = Number(splitted[1])
+          result.push(helper.addIdToStylesData(style.data, curId))
+          result = result.sort((a, b) =>{
+
+            return a.product_id - b.product_id
+          });
+        })
+        return result
+      }
+
+      let finalStyles = sortStyles(currentProductsAndStyles[1])
+
+      let styleData = {
+        data: {results:this.props.state.styles2.data},
+        product_id: this.props.state.productInformation.id
+      }
+
+      let finalOutfit =helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData.data)
+      let allPropsObj = helper.compileRelatedProductsDataToProps(finalProducts, finalStyles)
+
+      let values = [];
+      let keys = Object.keys(localStorage);
+      let i = keys.length;
+      while ( i-- ) {
+        values.push( JSON.parse(localStorage.getItem(keys[i])) );
+      }
+      console.log(currentProductsAndStyles)
+      let reviews =  currentProductsAndStyles[2].slice()
+      console.log(reviews, "🔥")
+      //post state to server then set state
+      postNewRelatedProductsData([{
+        relatedProducts: finalProducts,
+        relatedProductsStyles: finalStyles,
+        allPropsObj:allPropsObj,
+        outfitPropsObj: finalOutfit,
+        yourOutfitItems: values,
+        reviewData: reviews
+      }]).then((data) => {
+        console.log(data)
+
+        // console.log(data)
+
+
+      this.setState({
+        relatedProducts: finalProducts,
+        relatedProductsStyles: finalStyles,
+        allPropsObj:allPropsObj,
+        outfitPropsObj: finalOutfit,
+        yourOutfitItems: values,
+        reviewData: reviews
+      })
+     })
+    })
+
+    }
+    // }
+
+
+
+
+
+
+    // let fetchProducts = () => {
+
+
+
+
+    //   return new Promise((resolve, reject) => {
+
+    //     let newS =[]
+    //     let result =[]
+    //     let newP = []
+    //     let newR =[]
+    //     let reviewData=[];
+    //     this.props.state.relatedProducts.forEach((productId) => {
+
+    //       productsWithId(productId).then(p => {
+
+    //         newP.push(p.data)
+    //         productsStyle(productId).then(s => {
+    //           newS.push(s)
+    //           reviewsMeta(productId).then(r => {
+    //             newR.push(r.data)
+    //             // newS.push(s)
+    //             result = [newP, newS, newR]
+    //             if (result[0].length === this.props.state.relatedProducts.length && result[1].length === this.props.state.relatedProducts.length) {
+    //               resolve(result)
+    //             }
+    //           })
+    //         })
+    //       })
+    //     })
+    //   })
+    // }
+
+
+    // fetchProducts().then((currentProductsAndStyles) => {
+
+
+    //   let sortedProducts = (data) => {
+    //     let result = data.sort((a, b) => {
+    //       return a.id -b.id
+    //     })
+    //     return result
+    //   }
+
+    //   let finalProducts = sortedProducts(currentProductsAndStyles[0])
+
+    //   let sortStyles = (data) => {
+
+    //     let result =[];
+    //     data.forEach((style) => {
+
+    //       let splitted = style.config.url.split('?')
+    //       let curId = Number(splitted[1])
+    //       result.push(helper.addIdToStylesData(style.data, curId))
+    //       result = result.sort((a, b) =>{
+
+    //         return a.product_id - b.product_id
+    //       });
+    //     })
+    //     return result
+    //   }
+
+    //   let finalStyles = sortStyles(currentProductsAndStyles[1])
+
+    //   let styleData = {
+    //     data: {results:this.props.state.styles2.data},
+    //     product_id: this.props.state.productInformation.id
+    //   }
+
+    //   let finalOutfit =helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData.data)
+    //   let allPropsObj = helper.compileRelatedProductsDataToProps(finalProducts, finalStyles)
+
+    //   let values = [];
+    //   let keys = Object.keys(localStorage);
+    //   let i = keys.length;
+    //   while ( i-- ) {
+    //     values.push( JSON.parse(localStorage.getItem(keys[i])) );
+    //   }
+    //   console.log(currentProductsAndStyles)
+    //   let reviews =  currentProductsAndStyles[2].slice()
+    //   console.log(reviews, "🔥")
+    //   //post state to server then set state
+    //   postNewRelatedProductsData([{
+    //     relatedProducts: finalProducts,
+    //     relatedProductsStyles: finalStyles,
+    //     allPropsObj:allPropsObj,
+    //     outfitPropsObj: finalOutfit,
+    //     yourOutfitItems: values,
+    //     reviewData: reviews
+    //   }]).then((data) => {
+    //     console.log(data)
+
+    //     // console.log(data)
+
+
+    //   this.setState({
+    //     relatedProducts: finalProducts,
+    //     relatedProductsStyles: finalStyles,
+    //     allPropsObj:allPropsObj,
+    //     outfitPropsObj: finalOutfit,
+    //     yourOutfitItems: values,
+    //     reviewData: reviews
+    //   })
+    //  })
+    // })
+
+
+
+
+  }
+
+
+  componentDidUpdate (prevProps, prevState) {
+
+
+    // if (prevProps.state.product_id !== this.props.state.product_id) {
+
+    //   // if (newtime) {
+
+
+
+    // let fetchProducts = () => {
+
+
+
+
+    //   return new Promise((resolve, reject) => {
+
+    //     let newS =[]
+    //     let result =[]
+    //     let newP = []
+    //     let newR =[]
+    //     let reviewData=[];
+    //     this.props.state.relatedProducts.forEach((productId) => {
+
+    //       productsWithId(productId).then(p => {
+
+    //         newP.push(p.data)
+    //         productsStyle(productId).then(s => {
+    //           newS.push(s)
+    //           reviewsMeta(productId).then(r => {
+    //             newR.push(r.data)
+    //             // newS.push(s)
+    //             result = [newP, newS, newR]
+    //             if (result[0].length === this.props.state.relatedProducts.length && result[1].length === this.props.state.relatedProducts.length) {
+    //               resolve(result)
+    //             }
+    //           })
+    //         })
+    //       })
+    //     })
+    //   })
+    // }
+
+
+    // fetchProducts().then((currentProductsAndStyles) => {
+
+
+    //   let sortedProducts = (data) => {
+    //     let result = data.sort((a, b) => {
+    //       return a.id -b.id
+    //     })
+    //     return result
+    //   }
+
+    //   let finalProducts = sortedProducts(currentProductsAndStyles[0])
+
+    //   let sortStyles = (data) => {
+
+    //     let result =[];
+    //     data.forEach((style) => {
+
+    //       let splitted = style.config.url.split('?')
+    //       let curId = Number(splitted[1])
+    //       result.push(helper.addIdToStylesData(style.data, curId))
+    //       result = result.sort((a, b) =>{
+
+    //         return a.product_id - b.product_id
+    //       });
+    //     })
+    //     return result
+    //   }
+
+    //   let finalStyles = sortStyles(currentProductsAndStyles[1])
+
+    //   let styleData = {
+    //     data: {results:this.props.state.styles2.data},
+    //     product_id: this.props.state.productInformation.id
+    //   }
+
+    //   let finalOutfit =helper.compileYourOutfitDataToProps(this.props.state.productInformation, styleData.data)
+    //   let allPropsObj = helper.compileRelatedProductsDataToProps(finalProducts, finalStyles)
+
+    //   let values = [];
+    //   let keys = Object.keys(localStorage);
+    //   let i = keys.length;
+    //   while ( i-- ) {
+    //     values.push( JSON.parse(localStorage.getItem(keys[i])) );
+    //   }
+    //   console.log(currentProductsAndStyles)
+    //   let reviews =  currentProductsAndStyles[2].slice()
+    //   console.log(reviews, "🔥")
+    //   //post state to server then set state
+    //   postNewRelatedProductsData([{
+    //     relatedProducts: finalProducts,
+    //     relatedProductsStyles: finalStyles,
+    //     allPropsObj:allPropsObj,
+    //     outfitPropsObj: finalOutfit,
+    //     yourOutfitItems: values,
+    //     reviewData: reviews
+    //   }]).then((data) => {
+    //     console.log(data)
+
+    //     // console.log(data)
+
+
+    //   this.setState({
+    //     relatedProducts: finalProducts,
+    //     relatedProductsStyles: finalStyles,
+    //     allPropsObj:allPropsObj,
+    //     outfitPropsObj: finalOutfit,
+    //     yourOutfitItems: values,
+    //     reviewData: reviews
+    //   })
+    //  })
+    // })
+
+    // }
+
+
+
+
+
+  // }
+// } else {
+//       return getRelatedProdServerData(this.props.state.product_id)
+//       .then(data => {
+//         console.log('server data received')
+
+//       this.setState({
+//         relatedProducts: data.data[0].relatedProducts,
+//         relatedProductsStyles: data.data[0].relatedProductsStyles,
+//         allPropsObj:data.data[0].allPropsObj,
+//         outfitPropsObj: data.data[0].outfitPropsObj,
+//         yourOutfitItems: data.data[0].yourOutfitItems,
+//         reviewData: data.data[0].reviewData
+//       })
+
+//       })
+// // }
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
     outFit() {
@@ -133,7 +469,7 @@ class RelatedProducts extends React.Component {
         this.props.state.relatedProducts.forEach((productId) => {
           return productsStyle(productId)
             .then(data => {
-
+              // console.log(data, 'hiiii')
               let splitted = data.config.url.split('?')
               let curId = Number(splitted[1])
               result.push(helper.addIdToStylesData(data.data, curId))
@@ -153,6 +489,7 @@ class RelatedProducts extends React.Component {
          this.props.state.relatedProducts.forEach((productId) => {
            return productsWithId(productId)
              .then(data => {
+              //  console.log(data)
                result.push(data.data);
                if (result.length === this.props.state.relatedProducts.length) {
                  result.sort((a, b) => a['id'] - b['id']);

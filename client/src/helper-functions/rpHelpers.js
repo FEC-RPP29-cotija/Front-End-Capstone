@@ -1,6 +1,7 @@
 
 const helper = {
   compileRelatedProductsDataToProps: (relatedProducts, relatedProductsStyles) => {
+    // console.log(relatedProducts, "✅")
     let allPropsObj = {};
     let relatedProductsCopy = relatedProducts.slice();
     let relatedProductsStylesCopy= relatedProductsStyles.slice();
@@ -33,11 +34,13 @@ const helper = {
       };
     })
 
+
     return Object.values(allPropsObj);
   },
 
   compileYourOutfitDataToProps: (currentProductInfo, currentProductStyles) => {
     let outfitPropsObj = {};
+    // console.log(currentProductInfo)
     let currentProductInfoCopy = Object.assign(currentProductInfo);
 
     outfitPropsObj['product_id'] = currentProductInfoCopy.id;
@@ -60,6 +63,8 @@ const helper = {
     productStylesWithId['results'] = stateStylesCopy;
     return productStylesWithId;
   },
+
+
 
   formatFeatures: (currentProd, clickedProd) => {
     const allFeatureKeys = [

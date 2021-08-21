@@ -18,7 +18,7 @@ const RelatedProductsList = (props) => {
         features={product.features}
         handleProductChange={props.handleProductChange}
         handleCompareItems={props.handleCompareItems}
-        starRating={props.reviews[index]}
+        starRating={props.reviews[index] ? props.reviews[index] : [] }
        />
      </div>
   });
