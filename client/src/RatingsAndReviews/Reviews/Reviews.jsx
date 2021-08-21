@@ -41,13 +41,8 @@ class Reviews extends React.Component {
     }
   }
 
-<<<<<<< HEAD
-  getStateData(loaded, sortBy) {
-    reviews(1, 25, sortBy, this.props.product_id)
-=======
   getStateData(loaded, sortBy, numReviews) {
     reviews(1, numReviews, sortBy, this.props.product_id)
->>>>>>> 18240c7b0bd30dbb36e9b3382ca6bfaf949febbc
       .then(({ data }) => {
         // if sort selected is relevance sort the data
         let reviews = sortBy === 'relevant'
