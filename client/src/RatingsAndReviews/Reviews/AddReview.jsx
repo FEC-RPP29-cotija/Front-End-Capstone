@@ -43,7 +43,7 @@ class AddReview extends React.Component {
     }
     else {
       this.setState({
-        [stateval]: value
+        [stateval]: value || ''
       });
     }
   }
@@ -124,7 +124,9 @@ class AddReview extends React.Component {
           <div className="review-input">
             <div className="ri-title">How would you rate this overall? <a className='r-required'>*</a></div>
             {Stars(this.state.rating, this.handleOverallRatingChange)}
-            {["no rating selected", "Poor", "Fair", "Average", "Good", "Great"][this.state.rating]}
+            <div className="r-star-rating-selected">
+              {["no rating selected", "Poor", "Fair", "Average", "Good", "Great"][this.state.rating]}
+            </div>
           </div>
         </div>
         {/* RECOMMEND RADIO GROUP */}
@@ -168,7 +170,7 @@ class AddReview extends React.Component {
         <div className="r-full-min">
           {
             this.state.body
-              ? this.state.body.length + 1 > 49
+              ? this.state.body.length > 49
                 ? `Minimum reached`
                 : `Minimum required characters left: ${50- this.state.body.length}`
               : `Minimum required characters left: 50`
@@ -190,7 +192,7 @@ class AddReview extends React.Component {
             className="r-photo-button"
             style={{display: this.state.allowUpload ? "inline-block" : "none"}}
             onClick={this.imitateUpload}>
-            Add A Photo
+            Upload
           </button>
           <div className="r-photos">
           {this.state.photos.map((photo, index) => {
@@ -208,7 +210,7 @@ class AddReview extends React.Component {
           <div className="r-name-email">
           {/* WHAT IS YOUR NAME */}
             <div className="r-name">
-              <label className="r-title">Enter Your Nickname <a className='r-required'>*</a></label>
+              <label className="r-title">Enter your nickname <a className='r-required'>*</a></label>
               <input className="r-input-small"
               placeholder="Example: jackson11!"
               stateval="name"
@@ -232,11 +234,13 @@ class AddReview extends React.Component {
             </div>
           </div>
           {/* SUBMIT BUTTON */}
-          <button
-            className="r-submit"
-            onClick={this.submitReview}>
-              Sumbit Review
+          <div className="form-button-wrap">
+            <button
+              className="r-submit"
+              onClick={this.submitReview}>
+                Submit Review
             </button>
+          </div>
         </div>
       </div>
     );

@@ -45,10 +45,10 @@ const RelatedProductsCard = (props) => {
             )
           }
         })()}
-        <img id='rpImage' src={props.photo || 'https://lightwidget.com/wp-content/uploads/local-file-not-found-480x488.png'}
+        <img id='rpImage' src={props.photo || 'https://st4.depositphotos.com/14953852/22772/v/600/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg'}
         alt='related clothing product'
         className='relatedProductImage'></img>
-
+        {/* https://tinyurl.com/4mfm7zxv */}
         <span className="reviewStars">{getStars(props.starRating.ratings)}</span>
         </div>
     </div>

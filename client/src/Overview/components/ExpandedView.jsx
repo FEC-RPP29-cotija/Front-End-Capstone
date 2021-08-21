@@ -1,6 +1,7 @@
 import React from "react";
 
 const ExpandedView = (props) => {
+  if (props.state.styles.length > 0) {
   let keyTwo = -1;
   return (
     <>
@@ -105,6 +106,9 @@ const ExpandedView = (props) => {
       </div>
     </>
   );
+        } else {
+          return (null)
+        }
 };
 
 export default ExpandedView;

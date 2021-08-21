@@ -114,7 +114,8 @@ const reviews = {
     "product": "28214",
     "page": 0,
     "count": 1000,
-    "results": []
+    "results": [],
+
   }
 };
 

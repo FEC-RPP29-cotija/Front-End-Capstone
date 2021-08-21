@@ -18,19 +18,25 @@ class RatingsAndReviews extends React.Component {
   };
 
   setStarFilter(event) {
-    let stars = parseInt(event.target.getAttribute('star'));
-    let filters = this.state.starFilters.slice();
-    let index = filters.indexOf(stars);
-
-    if (index !== -1) {
-      filters.splice(index, 1);
+    if (event.target.getAttribute('remove')) {
+      this.setState({
+        starFilters: []
+      });
     } else {
-      filters.push(stars);
-    }
+      let stars = parseInt(event.target.getAttribute('star'));
+      let filters = this.state.starFilters.slice();
+      let index = filters.indexOf(stars);
 
-    this.setState({
-      starFilters: filters.sort().reverse()
-    });
+      if (index !== -1) {
+        filters.splice(index, 1);
+      } else {
+        filters.push(stars);
+      }
+
+      this.setState({
+        starFilters: filters.sort().reverse()
+      });
+    }
   }
 
   hideIfNoReviews(bool) {
@@ -47,21 +53,26 @@ class RatingsAndReviews extends React.Component {
 
   render() {
     return (
-      <div
-        className="ratings-and-reviews"
-        id="link_to_reviews"
-        style={{display: this.state.hidden ? "none" : "flex"}}
-        onClick={this.props.recordClick}>
-        <RatingsBreakdown
-          product_id={this.props.product_id}
-          starFilterClick={this.setStarFilter}
-          hideIfNoReviews={this.hideIfNoReviews}
-          setCharacteristics={this.setCharacteristics}/>
-        <Reviews
-          product_id={this.props.product_id}
-          starFilters={this.state.starFilters}
-          starFilterClick={this.setStarFilter}
-          characteristics={this.state.characteristics}/>
+      <div className="rnr">
+        <h2 className="rnr-title">Ratings & Reviews</h2>
+        <div
+          className="ratings-and-reviews"
+          id="link_to_reviews"
+          onClick={this.props.recordClick}>
+          <RatingsBreakdown
+            product_id={this.props.product_id}
+            starFilters={this.state.starFilters}
+            starFilterClick={this.setStarFilter}
+            hideIfNoReviews={this.hideIfNoReviews}
+            setCharacteristics={this.setCharacteristics}
+            hidden={this.state.hidden}/>
+          <Reviews
+            product_id={this.props.product_id}
+            characteristics={this.state.characteristics}
+            starFilters={this.state.starFilters}
+            productName={this.props.productName}
+            hidden={this.state.hidden}/>
+        </div>
       </div>
     );
   }
@@ -69,7 +80,9 @@ class RatingsAndReviews extends React.Component {
 
 RatingsAndReviews.propTypes = {
   product_id: PropTypes.number,
-  recordClick: PropTypes.func
+  recordClick: PropTypes.func,
+  productName: PropTypes.string
 }
 
 export default ReviewsClicker(RatingsAndReviews);
+export { RatingsAndReviews as PureRatingsAndReviews };

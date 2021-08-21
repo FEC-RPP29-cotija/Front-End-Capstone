@@ -288,7 +288,7 @@
     border: 1px solid black;
     z-index: 3;
     width: 30%;
-    margin-right: -33%;
+    margin-right: -25%;
     background: white;
     margin-bottom: -4em;
     border-radius: 5%;
@@ -350,7 +350,7 @@
   padding: 10px 20px 10px 20px;
   border: solid #4d4d4d 1px;
   text-decoration: none;
-  width: 25%;
+  width: 30%;
 }
 
 .selectSize {
@@ -364,7 +364,7 @@
   padding: 10px 20px 10px 20px;
   border: solid #4d4d4d 1px;
   text-decoration: none;
-  width: 60%;
+  width: 66%;
 }
 
 .favoriteStar {
@@ -388,3 +388,4 @@
   /* Lowering the shadow */
 }
 
+/*Expanded View*/

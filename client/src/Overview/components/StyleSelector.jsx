@@ -7,7 +7,7 @@ const StyleSelector = (props) => {
 
     return (
       <div className="style-selector">
-        <p>STYLE  {props.state.styles[props.OverviewState.styleIndex].name}</p>
+        <p>STYLE > {props.state.styles[props.OverviewState.styleIndex].name}</p>
         <table>
           <tbody key = "tbody">
             {(function () {

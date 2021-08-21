@@ -6,95 +6,116 @@ const ImageGallery = (props) => {
     let keyTwo = -1;
 
     return (
-      <div className="image-gallery" >
+      <div className="image-gallery">
         <div className="image-sidebar">
-          {function () {
+          {(function () {
             //console.log('number of photos', props.state.styles[props.OverviewState.styleIndex].photos.length)
             if (props.OverviewState.firstPhotoInPhotoSelectorIndex > 0) {
               return (
-                <button className = "upArrow" onClick = {props.upArrow}>^</button>
-              )
+                <button className="up-and-down-arrow" onClick={props.upArrow}>
+                  ^
+                </button>
+              );
             }
-          }()}
+          })()}
 
           {props.state.styles[props.OverviewState.styleIndex].photos.map(
             (photo) => {
               keyOne += 1;
-
-              if (keyOne >= props.OverviewState.firstPhotoInPhotoSelectorIndex && keyOne < (7 + Number(props.OverviewState.firstPhotoInPhotoSelectorIndex))) {
-              if (keyOne == props.OverviewState.mainPhoto) {
-                return (
-                  <img
-                    className="selected-image gallery-image"
-                    key={keyOne}
-                    value={keyOne}
-                    src={photo.url}
-                    onClick={props.changeMainPhoto}
+              if (
+                keyOne >= props.OverviewState.firstPhotoInPhotoSelectorIndex &&
+                keyOne <
+                  7 + Number(props.OverviewState.firstPhotoInPhotoSelectorIndex)
+              ) {
+                if (keyOne == props.OverviewState.mainPhoto) {
+                  return (
+                    <img
+                      className="selected-image gallery-image"
+                      key={keyOne}
+                      value={keyOne}
+                      src={photo.url}
+                      onClick={props.changeMainPhoto}
                     ></img>
-                )
-
-              } else {
-                return (
-                  <img
-                  className="gallery-image"
-                  key={keyOne}
-                  value={keyOne}
-                  src={photo.url}
-                  onClick={props.changeMainPhoto}
-                  ></img>
+                  );
+                } else {
+                  return (
+                    <img
+                      className="gallery-image"
+                      key={keyOne}
+                      value={keyOne}
+                      src={photo.url}
+                      onClick={props.changeMainPhoto}
+                    ></img>
                   );
                 }
               }
             }
           )}
-          {function () {
-            if ((props.OverviewState.firstPhotoInPhotoSelectorIndex + 7) < props.state.styles[props.OverviewState.styleIndex].photos.length -1) {
+          {(function () {
+            if (
+              props.OverviewState.firstPhotoInPhotoSelectorIndex + 7 <
+              props.state.styles[props.OverviewState.styleIndex].photos.length
+            ) {
               return (
-                 <button className = "downArrow" onClick = {props.downArrow}>v</button>
-              )
+                <button className="up-and-down-arrow" onClick={props.downArrow}>
+                  v
+                </button>
+              );
             }
-          }()}
-
+          })()}
         </div>
 
-        <div >
+        <div>
           {props.state.styles[props.OverviewState.styleIndex].photos.map(
-              (photo) => {
-                keyTwo += 1;
-                if (keyTwo == props.OverviewState.mainPhoto) {
-                  return (
-                    <div className = "main-image">
-                      {function() {
-                        if (props.OverviewState.mainPhoto > 0) {
-                          return (
-                            <button className = "main-image-left-arrow" onClick = {props.mainImageLeftArrow}>{function() {
-                              return '<'
-                            }()}</button>
-                            )
-                        }
-                      }()
-                    }
+            (photo) => {
+              keyTwo += 1;
+              if (keyTwo == props.OverviewState.mainPhoto) {
+                return (
+                  <div className="main-image">
+                    {(function () {
+                      if (props.OverviewState.mainPhoto > 0) {
+                        return (
+                          <button
+                            className="main-image-left-arrow"
+                            onClick={props.mainImageLeftArrow}
+                          >
+                            {(function () {
+                              return "<";
+                            })()}
+                          </button>
+                        );
+                      }
+                    })()}
                     <img
-                      className= "main-photo"
+                      className="main-photo"
                       key={keyTwo}
                       value={keyTwo}
                       src={photo.url}
-                      onClick = {props.expandedView}
+                      onClick={props.expandedView}
                     ></img>
 
-                    {function() {
-                      if (props.OverviewState.mainPhoto < props.state.styles[props.OverviewState.styleIndex].photos.length -1) {
+                    {(function () {
+                      if (
+                        props.OverviewState.mainPhoto <
+                        props.state.styles[props.OverviewState.styleIndex]
+                          .photos.length -
+                          1
+                      ) {
                         return (
-                          <button className = "main-image-right-arrow" onClick = {props.mainImageRightArrow}>></button>
-                          )
+                          <button
+                            className="main-image-right-arrow"
+                            onClick={props.mainImageRightArrow}
+                          >
+                            >
+                          </button>
+                        );
                       }
-                    }()}
-                    </div>
-                  );
-                }
+                    })()}
+                  </div>
+                );
               }
-            )
-          }
+            }
+          )}
         </div>
       </div>
     );

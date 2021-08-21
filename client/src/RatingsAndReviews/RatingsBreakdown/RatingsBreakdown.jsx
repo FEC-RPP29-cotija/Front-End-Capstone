@@ -62,7 +62,9 @@ class RatingsBreakdown extends React.Component {
 
   render() {
     return (
-      <div className="ratings-breakdown">
+      <div
+        className="ratings-breakdown"
+        style={{display: this.props.hidden ? "none" : "flex"}}>
         <RatingSummary
           total={this.state.totalRatings}
           average={this.state.averageRating}
@@ -70,6 +72,7 @@ class RatingsBreakdown extends React.Component {
         <RatingBreakdown
           percentages={this.state.percentages}
           counts={this.state.countsForEach}
+          starFilters={this.props.starFilters}
           starFilterClick={this.props.starFilterClick}/>
         <ProductBreakdown
           characteristics={this.state.characteristics}/>
@@ -80,9 +83,11 @@ class RatingsBreakdown extends React.Component {
 
 RatingsBreakdown.propTypes = {
   product_id: PropTypes.number,
+  starFilters: PropTypes.array,
   starFilterClick: PropTypes.func,
   hideIfNoReviews: PropTypes.func,
-  setCharacteristics: PropTypes.func
+  setCharacteristics: PropTypes.func,
+  hidden: PropTypes.bool
 }
 
 export default RatingsBreakdown;

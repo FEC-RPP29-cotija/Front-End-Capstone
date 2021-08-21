@@ -4,22 +4,33 @@ const AddToCart = (props) => {
   if (props.state.styles.length > 0) {
     let val = 0;
     return (
-      <div>
-        <select className="selectSize" onChange={props.changeAvailableQuantity}>
-          <option id = "select-size">SELECT SIZE</option>
+      <>
+        <div className = "select-size-and-quantity">
+          <div className = "select-items" style = {{marginBottom: `${2- (Object.keys(props.state.styles[props.OverviewState.styleIndex].skus)).length}em`}}>
           {Object.entries(
             props.state.styles[props.OverviewState.styleIndex].skus
           ).map(([key, value]) => {
             if (value.quantity > 0) {
               val += 1;
               return (
-                <option key={val} value={value.quantity + ' ' + value.size}>
+                <div key={val} className = {'drop-down ' + value.size} value={value.quantity + ' ' + value.size + ' ' + key} onClick={props.changeAvailableQuantity}>
                   {value.size}
-                </option>
+                </div>
               );
             }
           })}
-        </select>
+          </div>
+          <div className="selectSize" >
+          <div id = "select-size" onClick = {props.dropDown}>{function() {
+            if (props.OverviewState.sizeSelected.length > 0) {
+              return (props.OverviewState.sizeSelected)
+            } else if (val == 0) {
+              return ('OUT OF STOCK')
+            } else {
+              return ('SELECT SIZE')
+            }
+          }()}</div>
+          </div>
         <select className="quantity" onChange = {props.changeSelectedQuantity}>
           {(function () {
             let jsxElements = [];
@@ -39,9 +50,13 @@ const AddToCart = (props) => {
             }
           })()}
         </select>
-        <button className="addToBag" onClick = {props.addToBag}>ADD TO BAG +</button>
+        </div>
+        <div className = "bag-and-favorite">
+        <button className="addToBag" onClick = {props.addToBag} style = {{display: val ? "flex" : "none"}}>ADD TO BAG +</button>
         <button className="favoriteStar">⭒</button>
-      </div>
+        </div>
+        </>
+
     );
   } else {
     return null;

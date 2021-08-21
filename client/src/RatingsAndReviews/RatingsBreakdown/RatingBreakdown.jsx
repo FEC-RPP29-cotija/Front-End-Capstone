@@ -10,6 +10,16 @@ const RatingBreakdown = (props) => {
       <BreakdownClickable stars={3} percent={props.percentages[2]} count={props.counts[2]} starFilterClick={props.starFilterClick}/>
       <BreakdownClickable stars={2} percent={props.percentages[1]} count={props.counts[1]} starFilterClick={props.starFilterClick}/>
       <BreakdownClickable stars={1} percent={props.percentages[0]} count={props.counts[0]} starFilterClick={props.starFilterClick}/>
+      <div
+        className="sort-options-selected"
+        style={{display: props.starFilters.length === 0 ? "none" : "block"}}>
+        <div
+          className="sort-option-title"
+          remove="all"
+          onClick={props.starFilterClick}>
+            ✕ Remove all filters: {props.starFilters.join(', ')}
+        </div>
+      </div>
     </div>
   );
 };
@@ -17,6 +27,7 @@ const RatingBreakdown = (props) => {
 RatingBreakdown.propTypes = {
   percentages: PropTypes.array,
   counts: PropTypes.array,
+  starFilters: PropTypes.array,
   starFilterClick: PropTypes.func
 }
 

@@ -7,12 +7,19 @@ import { expect, jest, test, describe, beforeEach, afterEach } from '@jest/globa
 import renderer from 'react-test-renderer';
 
 // COMPONENTS & HELPERS
-import RatingsAndReviews from '../../RatingsAndReviews/RatingsAndReviews.jsx';
+import { PureRatingsAndReviews as RatingsAndReviews } from '../../RatingsAndReviews/RatingsAndReviews.jsx';
 import reviewRoutes from '../../clientRoutes/reviews.js';
 import helper from '../../helper-functions/rpHelpers.js';
 jest.mock('../../clientRoutes/reviews.js');
 const mockEvent = (attr, value) => {
-  return { target: { getAttribute: attr => value } }
+  return {
+    target: {
+      getAttribute: attr => {
+        if (attr === 'remove') return null;
+        return value
+      }
+    }
+  }
 }
 
 const props = {
@@ -40,7 +47,7 @@ describe('RatingsAndReviews component', () => {
       expect(instance.state.starFilters.length).toBe(1);
     });
 
-    test('should remove a star filter if currently present', () => {
+    test('should remove star filter', () => {
       const instance = wrapper.instance();
       jest.spyOn(instance, 'setStarFilter');
       const starEvent = mockEvent('star', '4');

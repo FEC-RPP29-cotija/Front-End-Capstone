@@ -31,7 +31,7 @@ let props = {
 
 let wrapper;
 
-describe('Review component', () => {
+describe('ReviewsHeader component', () => {
   describe('componentDidMount', () => {
     beforeEach(() => {
       wrapper = mount(<ReviewsHeader {...props}/>);
@@ -48,17 +48,6 @@ describe('Review component', () => {
       })
       .then(() => {
         expect(wrapper.find('select').props().value).toBe('newest');
-      });
-    });
-
-    test('should call starFilterClick when clearing star filters', () => {
-      const event = { target: { value: 5 } };
-      Promise.resolve(wrapper.find('.sort-option div.remove-star-filter').simulate('click', event))
-      .then(() => {
-        wrapper.update();
-      })
-      .then(() => {
-        expect(wrapper.props().starFilters).toBe([]);
       });
     });
   });

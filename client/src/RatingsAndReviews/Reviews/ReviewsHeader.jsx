@@ -16,31 +16,11 @@ const ReviewsHeader = (props) => {
           </select>
         </div>
       </div>
-      <div className="sort-options-selected">
-        <div className="sort-option-title">Also sorted on: </div>
-        {props.starFilters.map((sfilter, index) => {
-          return (
-            <div
-              className="sort-option"
-              key={index}>
-                <div
-                  className="remove-star-filter"
-                  star={sfilter}
-                  onClick={props.starFilterClick}>
-                    ✕
-                </div>
-                <div className="sort-option-text">{sfilter} stars</div>
-            </div>
-          );
-        })}
-      </div>
     </div>
   );
 };
 
 ReviewsHeader.propTypes = {
-  starFilters: PropTypes.array,
-  starFilterClick: PropTypes.func,
   numReviews: PropTypes.number,
   sortBy: PropTypes.string,
   handleSortChange: PropTypes.func

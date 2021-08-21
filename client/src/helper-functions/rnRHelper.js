@@ -57,9 +57,6 @@ const helper = {
       return <div className="irt-recommend">✓ I recommend this product</div>
     }
   },
-  truncateSummary: (string) => {
-    return [`${string}...`, undefined];
-  },
   formatDate: (date) => {
     const newDate = new Date(date);
     const options = { year: 'numeric', month: 'long', day: 'numeric' };

@@ -30,7 +30,7 @@ const ProductInfo = (props) => {
                   {getStars(props.state.ratings)}
                 </div>
                 <a href="#link_to_reviews">
-                  Read all {Object.keys(props.state.ratings).length} Reviews
+                  Read all {Object.values(props.state.ratings).reduce((acc, cur) => { return parseInt(acc) + parseInt(cur) })} Reviews
                 </a>
               </div>
             );

@@ -5,7 +5,6 @@ import Stars from '../../stars/stars.jsx'
 const RatingSummary = (props) => {
   return (
     <div className="rating-summary">
-      <div className="rating-title">RATINGS & REVIEWS</div>
       <div className="average-rating-wrapper">
         <div className="average-rating-num">{props.average.toFixed(1)}</div>
         <div className="stars-count-wrapper">

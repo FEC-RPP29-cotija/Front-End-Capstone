@@ -11,8 +11,12 @@ import { reviews, reviewsMeta } from "./clientRoutes/reviews.js";
 import { products, productsWithId, productsStyle, productsRelated } from "./clientRoutes/products.js";
 import { questions, getReported } from "./clientRoutes/qa.js";
 import { cart } from "./clientRoutes/cart.js";
-
-//questions/answers test data
+// CSS to load
+import './styles/darkMode.css';
+import './styles/displayImageGallery.css'
+import './styles/questionsAnswers.css'
+import './styles/ratingsReviews.css'
+import './styles/relatedProducts.css'
 
 class App extends React.Component {
   constructor(props) {
@@ -100,16 +104,12 @@ class App extends React.Component {
           styles: results[2].data,
           styles2:results[2],
           relatedProducts: results[3].data,
-          //do not remove please
           qNa: results[4].data,
           currentItemName:results[1].data.name,
           product_id:results[1].data.id,
           ratings: results[5].data.ratings,
           currentProductPhoto: results[2].data[0].photos[0].thumbnail_url
-          //do not remove
-
-        })
-        // console.log(this.state.styles)
+        });
       })
       .then(() => {
         this.setState({
@@ -153,7 +153,8 @@ class App extends React.Component {
             )}
           </QnAClicks>
           <RatingsAndReviews
-            product_id={this.state.product_id}/>
+            product_id={this.state.product_id}
+            productName={this.state.productInformation.name}/>
         </div>
       )
     } else {
@@ -162,10 +163,4 @@ class App extends React.Component {
   }
 }
 
-App.propTypes ={
-  qNaTestData: propTypes.array.isRequired
-
-}
-
 ReactDOM.render(<App />, document.getElementById('app'));
-
