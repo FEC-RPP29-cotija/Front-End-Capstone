@@ -22,7 +22,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      product_id: 36300,
+      product_id: 36525,
       productInformation: {},
       styles: [],
       relatedProducts: [],

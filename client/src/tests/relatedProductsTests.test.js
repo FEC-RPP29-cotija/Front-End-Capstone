@@ -7,6 +7,8 @@ import RelatedProducts from '../relatedProducts/RelatedProductsView/RelatedProdu
 import RelatedProductsCard from '../RelatedProducts/RelatedProductsView/RelatedProductsCard.jsx';
 import RelatedProductsList from '../RelatedProducts/RelatedProductsView/RelatedProductsList.jsx';
 import RelatedProductsModal from '../relatedProducts/RelatedProductsView/RelatedProductsModal.jsx';
+import YourOutfitCard from '../relatedProducts/YourOutfitView/YourOutfitCard.jsx';
+import YourOutfitList from '../relatedProducts/YourOutfitView/YourOutfitList.jsx';
 import 'jsdom-global/register';
 
 
@@ -77,6 +79,24 @@ describe('RelatedProductsModal', () => {
   rpmwrapper = mount(<RelatedProductsModal {...exampleData.relatedProductsModalProps} />);
   test('Should be stateless component', () => {
     const instance = rpmwrapper.instance();
+    expect(instance).toBe(null);
+  })
+})
+
+let yocwrapper;
+describe('YourOutfitCard', () => {
+  rpcwrapper = mount(<YourOutfitCard {...exampleData.relatedProductsCardProps} />);
+  test('Should be stateless component', () => {
+    const instance = yocwrapper.instance();
+    expect(instance).toBe(null);
+  })
+})
+
+let yolwrapper;
+describe('YourOutfitList', () => {
+  yolwrapper = mount(<YourOutfitList {...exampleData.relatedProductsListProps} />);
+  test('Should be stateless component', () => {
+    const instance = yolwrapper.instance();
     expect(instance).toBe(null);
   })
 })

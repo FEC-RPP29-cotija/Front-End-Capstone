@@ -1,9 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-
 const AddToOutfitCard = (props) => {
-
   return (
     <div className='addToOutfitCard' >
         <button className='addToOutfitButton'
