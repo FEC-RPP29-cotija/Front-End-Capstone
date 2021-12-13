@@ -17,7 +17,15 @@
 
 ### Description
 ---
-**Product Detail**
+**Product Overview**
+
+This is the First Section of the Website. This section has a zoomable pannable main product image and multiple carousels for selecting different product styles and images. Once you find a product you like, there is a dynamic size and quantity selector, which changes with each product, and a "Add to Cart" button. 
+
+This section was built using React, CSS3, and Express.
+
+Optimized for load-speed, accessibility, and interactivity using Lighthouse and PageSpeed Insights, Reduced Time-to-Interactive to 1.0s using text compression, preloading images, and tree-shaking.
+
+All sections have a Real User Monitoring (RUM) for click  tracking using higher order components
 
 **Ratings & Reviews**
 
